@@ -1,0 +1,93 @@
+package makciyt.decorativemod.tileentity;
+
+import makciyt.decorativemod.block.custom.WardrobeBlock;
+import makciyt.decorativemod.container.WardrobeContainer;
+import net.minecraft.block.BlockState;
+import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.ItemStackHelper;
+import net.minecraft.inventory.container.Container;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.tileentity.LockableLootTileEntity;
+import net.minecraft.tileentity.TileEntityType;
+import net.minecraft.util.Direction;
+import net.minecraft.util.NonNullList;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
+
+public class WardrobeTile extends LockableLootTileEntity {
+    private NonNullList<ItemStack> wardrobeContents = NonNullList.withSize(17, ItemStack.EMPTY);
+    private net.minecraftforge.common.util.LazyOptional<net.minecraftforge.items.IItemHandlerModifiable> wardrobeHandler;
+
+    public WardrobeTile(TileEntityType<?> tileEntityTypeIn) {
+        super(tileEntityTypeIn);
+    }
+
+    @Override
+    protected NonNullList<ItemStack> getItems() {
+        return wardrobeContents;
+    }
+
+    @Override
+    protected void setItems(NonNullList<ItemStack> itemsIn) {
+        wardrobeContents = itemsIn;
+    }
+
+    public WardrobeTile() {
+        this(ModTileEntities.WARDROBE_TILE.get());
+    }
+
+    @Override
+    public void read(BlockState state, CompoundNBT nbt) {
+        super.read(state, nbt);
+        this.wardrobeContents = NonNullList.withSize(this.getSizeInventory(), ItemStack.EMPTY);
+        if (!this.checkLootAndRead(nbt)) {
+            ItemStackHelper.loadAllItems(nbt, this.wardrobeContents);
+        }
+    }
+
+    @Override
+    public CompoundNBT write(CompoundNBT compound) {
+        super.write(compound);
+        if (!this.checkLootAndWrite(compound)) {
+            ItemStackHelper.saveAllItems(compound, this.wardrobeContents);
+        }
+
+        return compound;
+    }
+
+    @Override
+    protected ITextComponent getDefaultName() {
+        return new TranslationTextComponent("container.decorativemod.wardrobe");
+    }
+
+    @Override
+    protected Container createMenu(int id, PlayerInventory player) {
+        return new WardrobeContainer(id, world, pos, player, player.player);
+    }
+
+    @Override
+    public int getSizeInventory() {
+        return 17;
+    }
+
+    @Override
+    public <T> net.minecraftforge.common.util.LazyOptional<T> getCapability(net.minecraftforge.common.capabilities.Capability<T> cap, Direction side) {
+        if (!this.removed && cap == net.minecraftforge.items.CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
+            if (this.wardrobeHandler == null)
+                this.wardrobeHandler = net.minecraftforge.common.util.LazyOptional.of(this::createHandler);
+            return this.wardrobeHandler.cast();
+        }
+        return super.getCapability(cap, side);
+    }
+
+    private net.minecraftforge.items.IItemHandlerModifiable createHandler() {
+        BlockState state = this.getBlockState();
+        if (!(state.getBlock() instanceof WardrobeBlock)) {
+            return new net.minecraftforge.items.wrapper.InvWrapper(this);
+        }
+        IInventory inv = WardrobeBlock.getWardrobeInventory((WardrobeBlock) state.getBlock(), state, getWorld(), getPos(), true);
+        return new net.minecraftforge.items.wrapper.InvWrapper(inv == null ? this : inv);
+    }
+}

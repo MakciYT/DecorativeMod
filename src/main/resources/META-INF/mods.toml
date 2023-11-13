@@ -1,0 +1,26 @@
+modLoader="javafml" #mandatory
+loaderVersion="[36,)" #mandatory
+license="All rights reserved"
+[[mods]] #mandatory
+modId="decorativemod" #mandatory
+version="1.0" #mandatory
+displayName="Decorative Mod" #mandatory
+#displayURL="https://change.me.to.your.mods.homepage.example.invalid/" #optional
+#logoFile="decorativemod.png" #optional
+authors="MakciYT" #optional (#mandatory)
+description='''
+Декоративный мод, включающий в себя диван, стол, стул, тумбочку, холодильник, шкаф и мусорку.
+'''
+#Dependencies are optional.
+[[dependencies.decorativemod]] #optional
+    modId="forge" #mandatory
+    mandatory=true #mandatory
+    versionRange="[36,)" #mandatory
+    ordering="NONE"
+    side="BOTH"
+[[dependencies.decorativemod]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[1.16.5,1.17)"
+    ordering="NONE"
+    side="BOTH"

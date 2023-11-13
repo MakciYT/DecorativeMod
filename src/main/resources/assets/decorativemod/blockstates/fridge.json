@@ -1,0 +1,34 @@
+{
+  "variants": {
+    "facing=east,half=lower": {
+      "model": "decorativemod:block/fridge_bottom",
+      "y": 90
+    },
+    "facing=north,half=lower": {
+      "model": "decorativemod:block/fridge_bottom"
+    },
+    "facing=south,half=lower": {
+      "model": "decorativemod:block/fridge_bottom",
+      "y": 180
+    },
+    "facing=west,half=lower": {
+      "model": "decorativemod:block/fridge_bottom",
+      "y": 270
+    },
+    "facing=east,half=upper": {
+      "model": "decorativemod:block/fridge_top",
+      "y": 90
+    },
+    "facing=north,half=upper": {
+      "model": "decorativemod:block/fridge_top"
+    },
+    "facing=south,half=upper": {
+      "model": "decorativemod:block/fridge_top",
+      "y": 180
+    },
+    "facing=west,half=upper": {
+      "model": "decorativemod:block/fridge_top",
+      "y": 270
+    }
+  }
+}
