@@ -1,6 +1,6 @@
 ﻿# DecorativeMod
 Декоративный мод для игры Minecraft, добавляющий в нее холодильник и шкаф, что полезно для Minecraft-строителей.<br>
-Здесь представлен код мода, скачать сам мод можно по этой ссылке: https://drive.google.com/file/d/1K48O1NING0edamxeIykZAtK2Xk1YHsXQ/view?usp=sharing<br>
+Здесь представлен код мода, скачать сам мод можно по этой ссылке: https://drive.google.com/file/d/1K48O1NING0edamxeIykZAtK2Xk1YHsXQ/view?usp=sharing
 ## Скриншоты с новыми блоками и их крафтом:
 ![mcscreen1](https://github.com/MakciYT/DecorativeMod/assets/71623688/e26a4857-385a-4750-b692-8e5a5b18e888)
 ![mcfridge1](https://github.com/MakciYT/DecorativeMod/assets/71623688/a87d7f4f-18b5-4fb9-9197-4d929218714c)
